@@ -18,7 +18,12 @@ ROOM_TEMPERATURE_KEY = "room_temperature"
 ROOM_HUMIDITY_KEY = "room_relative_humidity"
 OUTSIDE_TEMPERATURE_KEY = "outside_temperature"
 TOTAL_HEATING_KEY = "total_heating_energy"
+HEATING_TODAY_KEY = "heating_energy_today"
+TOTAL_DHW_KEY = "total_dhw_energy"
+DHW_TODAY_KEY = "dhw_energy_today"
 TOTAL_POWER_CONSUMPTION_KEY = "total_power_consumption"
+POWER_CONSUMPTION_TODAY_KEY = "power_consumption_today"
+
 
 # Other keys
 MAC_ADDRESS_KEY = "mac_address"
