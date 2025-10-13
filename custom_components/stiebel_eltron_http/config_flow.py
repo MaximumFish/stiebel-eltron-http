@@ -23,7 +23,7 @@ from homeassistant.helpers.service_info.ssdp import (
 from slugify import slugify
 
 from .const import DOMAIN, LOGGER, MAC_ADDRESS_KEY
-from .scrapper import (
+from .scraper import (
     StiebelEltronScrapingClient,
     StiebelEltronScrapingClientAuthenticationError,
     StiebelEltronScrapingClientCommunicationError,
