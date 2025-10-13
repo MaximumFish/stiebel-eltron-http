@@ -10,7 +10,7 @@ if TYPE_CHECKING:
     from homeassistant.loader import Integration
 
     from .coordinator import StiebelEltronHttpDataUpdateCoordinator
-    from .scrapper import StiebelEltronScrapingClient
+    from .scraper import StiebelEltronScrapingClient
 
 
 type StiebelEltronHttpConfigEntry = ConfigEntry[StiebelEltronHttpData]
