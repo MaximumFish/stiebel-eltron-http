@@ -9,7 +9,7 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 
 from custom_components.stiebel_eltron_http.const import LOGGER
 
-from .scrapper import (
+from .scraper import (
     StiebelEltronScrapingClientAuthenticationError,
     StiebelEltronScrapingClientError,
 )
