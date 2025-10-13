@@ -19,7 +19,11 @@ from .const import (
     ROOM_HUMIDITY_KEY,
     ROOM_TEMPERATURE_KEY,
     TOTAL_HEATING_KEY,
+    HEATING_TODAY_KEY,
+    TOTAL_DHW_KEY,
+    DHW_TODAY_KEY,
     TOTAL_POWER_CONSUMPTION_KEY,
+    POWER_CONSUMPTION_TODAY_KEY,
 )
 from .entity import StiebelEltronHttpEntity
 
