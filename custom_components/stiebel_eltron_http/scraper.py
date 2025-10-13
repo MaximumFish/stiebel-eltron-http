@@ -24,7 +24,11 @@ from .const import (
     ROOM_HUMIDITY_KEY,
     ROOM_TEMPERATURE_KEY,
     TOTAL_HEATING_KEY,
+    HEATING_TODAY_KEY,
+    TOTAL_DHW_KEY,
+    DHW_TODAY_KEY,
     TOTAL_POWER_CONSUMPTION_KEY,
+    POWER_CONSUMPTION_TODAY_KEY,
 )
 
 
@@ -336,10 +340,26 @@ class StiebelEltronScrapingClient:
                         curr_table,  # type: ignore  # noqa: PGH003
                         "VD HEATING TOTAL",
                     )
+                    result[HEATING_TODAY_KEY] = self._extract_energy(
+                        curr_table,  # type: ignore  # noqa: PGH003
+                        "VD HEATING DAY",
+                    )
+                    result[TOTAL_DHW_KEY] = self._extract_energy(
+                        curr_table,  # type: ignore  # noqa: PGH003
+                        "VD DHW TOTAL",
+                    )
+                    result[DHW_TODAY_KEY] = self._extract_energy(
+                        curr_table,  # type: ignore  # noqa: PGH003
+                        "VD DHW DAY",
+                    )
                 case "POWER CONSUMPTION":
                     result[TOTAL_POWER_CONSUMPTION_KEY] = self._extract_energy(
                         curr_table,  # type: ignore  # noqa: PGH003
                         "VD HEATING TOTAL",
+                    )
+                    result[POWER_CONSUMPTION_TODAY_KEY] = self._extract_energy(
+                        curr_table,  # type: ignore  # noqa: PGH003
+                        "VD HEATING TODAY",
                     )
 
         # return the scraped data
