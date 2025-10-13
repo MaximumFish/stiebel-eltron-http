@@ -17,7 +17,7 @@ from homeassistant.loader import async_get_loaded_integration
 from .const import DOMAIN, LOGGER
 from .coordinator import StiebelEltronHttpDataUpdateCoordinator
 from .data import StiebelEltronHttpConfigEntry, StiebelEltronHttpData
-from .scrapper import StiebelEltronScrapingClient
+from .scraper import StiebelEltronScrapingClient
 
 if TYPE_CHECKING:
     from homeassistant.core import HomeAssistant
