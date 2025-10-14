@@ -23,8 +23,8 @@ from .const import (
     PROFILE_NETWORK_PATH,
     ROOM_HUMIDITY_KEY,
     ROOM_TEMPERATURE_KEY,
-    TOTAL_HEATING_PRODUCED_KEY,
-    HEATING_PRODUCED_TODAY_KEY,
+    TOTAL_HEAT_PRODUCED_KEY,
+    HEAT_PRODUCED_TODAY_KEY,
     TOTAL_DHW_PRODUCED_KEY,
     DHW_PRODUCED_TODAY_KEY,
     TOTAL_HEATING_CONSUMED_KEY,
@@ -338,30 +338,38 @@ class StiebelEltronScrapingClient:
             curr_headers = [header.get_text(strip=True) for header in all_headers]
             match curr_headers[0]:
                 case "AMOUNT OF HEAT":
-                    result[TOTAL_HEATING_KEY] = self._extract_energy(
+                    result[TOTAL_HEAT_PRODUCED_KEY] = self._extract_energy(
                         curr_table,  # type: ignore  # noqa: PGH003
                         "VD HEATING TOTAL",
                     )
-                    result[HEATING_TODAY_KEY] = self._extract_energy(
+                    result[HEAT_PRODUCED_TODAY_KEY] = self._extract_energy(
                         curr_table,  # type: ignore  # noqa: PGH003
                         "VD HEATING DAY",
                     )
-                    result[TOTAL_DHW_KEY] = self._extract_energy(
+                    result[TOTAL_DHW_PRODUCED_KEY] = self._extract_energy(
                         curr_table,  # type: ignore  # noqa: PGH003
                         "VD DHW TOTAL",
                     )
-                    result[DHW_TODAY_KEY] = self._extract_energy(
+                    result[DHW_PRODUCED_TODAY_KEY] = self._extract_energy(
                         curr_table,  # type: ignore  # noqa: PGH003
                         "VD DHW DAY",
                     )
                 case "POWER CONSUMPTION":
-                    result[TOTAL_POWER_CONSUMPTION_KEY] = self._extract_energy(
+                    result[TOTAL_HEATING_CONSUMED_KEY] = self._extract_energy(
                         curr_table,  # type: ignore  # noqa: PGH003
                         "VD HEATING TOTAL",
                     )
-                    result[POWER_CONSUMPTION_TODAY_KEY] = self._extract_energy(
+                    result[HEATING_CONSUMED_TODAY_KEY] = self._extract_energy(
                         curr_table,  # type: ignore  # noqa: PGH003
                         "VD HEATING DAY",
+                    )
+                    result[TOTAL_DHW_CONSUMED_KEY] = self._extract_energy(
+                        curr_table,  # type: ignore  # noqa: PGH003
+                        "VD DHW TOTAL",
+                    )
+                    result[DHW_CONSUMED_TODAY_KEY] = self._extract_energy(
+                        curr_table,  # type: ignore  # noqa: PGH003
+                        "VD DHW DAY",
                     )
 
         # return the scraped data
