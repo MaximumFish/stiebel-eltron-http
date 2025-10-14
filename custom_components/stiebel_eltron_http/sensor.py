@@ -62,7 +62,7 @@ ENTITY_DESCRIPTIONS = (
     ),
     SensorEntityDescription(
         key=TOTAL_HEATING_KEY,
-        name="Total heating",
+        name="Total heating energy",
         icon="mdi:radiator",
         native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
         device_class=SensorDeviceClass.ENERGY,
@@ -70,7 +70,7 @@ ENTITY_DESCRIPTIONS = (
     ),
     SensorEntityDescription(
         key=HEATING_TODAY_KEY,
-        name="Heating today",
+        name="Heating energy today",
         icon="mdi:radiator",
         native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
         device_class=SensorDeviceClass.ENERGY,
@@ -78,7 +78,7 @@ ENTITY_DESCRIPTIONS = (
     ),
     SensorEntityDescription(
         key=TOTAL_DHW_KEY,
-        name="Total DHW",
+        name="Total hot water energy",
         icon="mdi:water-boiler",
         native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
         device_class=SensorDeviceClass.ENERGY,
@@ -86,7 +86,7 @@ ENTITY_DESCRIPTIONS = (
     ),
     SensorEntityDescription(
         key=DHW_TODAY_KEY,
-        name="DHW today",
+        name="Hot water energy today",
         icon="mdi:water-boiler",
         native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
         device_class=SensorDeviceClass.ENERGY,
@@ -98,7 +98,7 @@ ENTITY_DESCRIPTIONS = (
         icon="mdi:lightning-bolt",
         native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
         device_class=SensorDeviceClass.ENERGY,
-        state_class=SensorStateClass.TOTAL,
+        state_class=SensorStateClass.TOTAL_INCREASING,
     ),
     SensorEntityDescription(
         key=POWER_CONSUMPTION_TODAY_KEY,
@@ -106,7 +106,7 @@ ENTITY_DESCRIPTIONS = (
         icon="mdi:lightning-bolt",
         native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
         device_class=SensorDeviceClass.ENERGY,
-        state_class=SensorStateClass.TOTAL,
+        state_class=SensorStateClass.TOTAL_INCREASING,
     ),
 )
 
