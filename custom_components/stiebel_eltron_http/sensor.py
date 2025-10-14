@@ -15,6 +15,9 @@ from homeassistant.const import PERCENTAGE, UnitOfEnergy, UnitOfTemperature
 from custom_components.stiebel_eltron_http.const import LOGGER
 
 from .const import (
+    OUTSIDE_TEMPERATURE_KEY,
+    ROOM_HUMIDITY_KEY,
+    ROOM_TEMPERATURE_KEY,
     TOTAL_HEAT_PRODUCED_KEY,
     HEAT_PRODUCED_TODAY_KEY,
     TOTAL_DHW_PRODUCED_KEY,
