@@ -359,7 +359,7 @@ class StiebelEltronScrapingClient:
                     )
                     result[POWER_CONSUMPTION_TODAY_KEY] = self._extract_energy(
                         curr_table,  # type: ignore  # noqa: PGH003
-                        "VD HEATING TODAY",
+                        "VD HEATING DAY",
                     )
 
         # return the scraped data
