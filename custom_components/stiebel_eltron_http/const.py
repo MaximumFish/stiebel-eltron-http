@@ -16,6 +16,7 @@ PROFILE_NETWORK_PATH = "/?s=5,0"
 # Sensor keys
 ROOM_TEMPERATURE_KEY = "room_temperature"
 ROOM_HUMIDITY_KEY = "room_relative_humidity"
+DHW_TEMPERATURE_KEY = "dhw_temperature"
 OUTSIDE_TEMPERATURE_KEY = "outside_temperature"
 TOTAL_HEAT_PRODUCED_KEY = "total_heat_produced"
 HEAT_PRODUCED_TODAY_KEY = "heat_produced_today"
