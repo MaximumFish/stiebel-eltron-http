@@ -18,6 +18,7 @@ from .const import (
     OUTSIDE_TEMPERATURE_KEY,
     ROOM_HUMIDITY_KEY,
     ROOM_TEMPERATURE_KEY,
+    DHW_TEMPERATURE_KEY,
     TOTAL_HEAT_PRODUCED_KEY,
     HEAT_PRODUCED_TODAY_KEY,
     TOTAL_DHW_PRODUCED_KEY,
@@ -41,6 +42,14 @@ ENTITY_DESCRIPTIONS = (
     SensorEntityDescription(
         key=ROOM_TEMPERATURE_KEY,
         name="Room temperature",
+        icon="mdi:thermometer",
+        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+        device_class=SensorDeviceClass.TEMPERATURE,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    SensorEntityDescription(
+        key=DHW_TEMPERATURE_KEY,
+        name="Hot water temperature",
         icon="mdi:thermometer",
         native_unit_of_measurement=UnitOfTemperature.CELSIUS,
         device_class=SensorDeviceClass.TEMPERATURE,
