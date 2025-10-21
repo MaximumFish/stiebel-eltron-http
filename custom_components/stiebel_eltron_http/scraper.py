@@ -23,6 +23,7 @@ from .const import (
     PROFILE_NETWORK_PATH,
     ROOM_HUMIDITY_KEY,
     ROOM_TEMPERATURE_KEY,
+    DHW_TEMPERATURE_KEY,
     TOTAL_HEAT_PRODUCED_KEY,
     HEAT_PRODUCED_TODAY_KEY,
     TOTAL_DHW_PRODUCED_KEY,
@@ -298,26 +299,34 @@ class StiebelEltronScrapingClient:
         soup = bs4.BeautifulSoup(response, "html.parser")
         result = {}
 
-        for curr_row in soup.find_all("tr"):
-            curr_row_elems = curr_row.find_all(["td", "th"])  # type: ignore  # noqa: PGH003
+        # find all tables
+        all_tables = soup.find_all("table")
 
-            if not curr_row_elems:
-                continue
+        for curr_table in all_tables:
+            all_rows = curr_table.find_all("tr")  # type: ignore  # noqa: PGH003
+            all_headers = all_rows[0].find_all(["th"])  # type: ignore  # noqa: PGH003
 
-            curr_row_elems = [elem.get_text(strip=True) for elem in curr_row_elems]
-
-            # find the requested data
-            match curr_row_elems[0]:
-                case "ACTUAL TEMPERATURE 1":
+            curr_headers = [header.get_text(strip=True) for header in all_headers]
+            match curr_headers[0]:
+                case "ROOM TEMPERATURE":
                     result[ROOM_TEMPERATURE_KEY] = _convert_temperature(
-                        curr_row_elems[1]
+                        curr_table,  # type: ignore  # noqa: PGH003
+                        "ACTUAL TEMPERATURE 1",
                     )
-                case "OUTSIDE TEMPERATURE":
+                    result[ROOM_HUMIDITY_KEY] = _convert_percentage(
+                        curr_table,  # type: ignore  # noqa: PGH003
+                        "RELATIVE HUMIDITY 1",
+                    )
+                case "HEATING":
                     result[OUTSIDE_TEMPERATURE_KEY] = _convert_temperature(
-                        curr_row_elems[1]
+                        curr_table,  # type: ignore  # noqa: PGH003
+                        "OUTSIDE TEMPERATURE",
                     )
-                case "RELATIVE HUMIDITY 1":
-                    result[ROOM_HUMIDITY_KEY] = _convert_percentage(curr_row_elems[1])
+                case "DHW":
+                    result[DHW_TEMPERATURE_KEY] = _convert_temperature(
+                        curr_table,  # type: ignore  # noqa: PGH003
+                        "ACTUAL TEMPERATURE",
+                    )
 
         # return the scraped data
         LOGGER.debug("Extracted data from Info > System page: %s", result)
