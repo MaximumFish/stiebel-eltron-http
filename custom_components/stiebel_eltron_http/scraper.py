@@ -294,6 +294,46 @@ class StiebelEltronScrapingClient:
 
         return f"{major_version}.{minor_version}.{revision}"
 
+    def _extract_temperature(
+        self, table: bs4.element.Tag, expected_header: str
+    ) -> float | None:
+        """Extract temperature value from a table given the expected header."""
+        table_rows = table.find_all("tr")
+        for curr_table_row in table_rows:
+            curr_table_elems = curr_table_row.find_all(["td", "th"])  # type: ignore  # noqa: PGH003
+
+            if not curr_table_elems:
+                continue
+            curr_table_elems = [elem.get_text(strip=True) for elem in curr_table_elems]
+
+            if len(curr_table_elems) < 2:
+                continue
+
+            if curr_table_elems[0] == expected_header:
+                return _convert_temperature(curr_table_elems[1])
+
+        return None
+
+    def _extract_percentage(
+        self, table: bs4.element.Tag, expected_header: str
+    ) -> float | None:
+        """Extract percentage value from a table given the expected header."""
+        table_rows = table.find_all("tr")
+        for curr_table_row in table_rows:
+            curr_table_elems = curr_table_row.find_all(["td", "th"])  # type: ignore  # noqa: PGH003
+
+            if not curr_table_elems:
+                continue
+            curr_table_elems = [elem.get_text(strip=True) for elem in curr_table_elems]
+
+            if len(curr_table_elems) < 2:
+                continue
+
+            if curr_table_elems[0] == expected_header:
+                return _convert_percentage(curr_table_elems[1])
+
+        return None
+
     def _extract_info_system(self, response: str) -> dict:
         """Extract the interesting values from the Info > System page."""
         soup = bs4.BeautifulSoup(response, "html.parser")
@@ -309,21 +349,21 @@ class StiebelEltronScrapingClient:
             curr_headers = [header.get_text(strip=True) for header in all_headers]
             match curr_headers[0]:
                 case "ROOM TEMPERATURE":
-                    result[ROOM_TEMPERATURE_KEY] = _convert_temperature(
+                    result[ROOM_TEMPERATURE_KEY] = self._extract_temperature(
                         curr_table,  # type: ignore  # noqa: PGH003
                         "ACTUAL TEMPERATURE 1",
                     )
-                    result[ROOM_HUMIDITY_KEY] = _convert_percentage(
+                    result[ROOM_HUMIDITY_KEY] = self._extract_percentage(
                         curr_table,  # type: ignore  # noqa: PGH003
                         "RELATIVE HUMIDITY 1",
                     )
                 case "HEATING":
-                    result[OUTSIDE_TEMPERATURE_KEY] = _convert_temperature(
+                    result[OUTSIDE_TEMPERATURE_KEY] = self._extract_temperature(
                         curr_table,  # type: ignore  # noqa: PGH003
                         "OUTSIDE TEMPERATURE",
                     )
                 case "DHW":
-                    result[DHW_TEMPERATURE_KEY] = _convert_temperature(
+                    result[DHW_TEMPERATURE_KEY] = self._extract_temperature(
                         curr_table,  # type: ignore  # noqa: PGH003
                         "ACTUAL TEMPERATURE",
                     )
